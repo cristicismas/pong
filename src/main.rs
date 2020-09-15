@@ -4,8 +4,8 @@ mod pong;
 use crate::pong::Pong;
 
 use amethyst::{
-    input::{InputBundle, StringBindings},
     core::transform::TransformBundle,
+    input::{InputBundle, StringBindings},
     prelude::*,
     renderer::{
         plugins::{RenderFlat2D, RenderToWindow},
@@ -29,6 +29,12 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
         .with(systems::PaddleSystem, "paddle_system", &["input_system"])
+        .with(systems::MoveBallsSystem, "ball_system", &[])
+        .with(
+            systems::BounceSystem,
+            "collision_system",
+            &["paddle_system", "ball_system"],
+        )
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 .with_plugin(
