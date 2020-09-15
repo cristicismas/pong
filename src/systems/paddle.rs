@@ -33,8 +33,6 @@ impl<'s> System<'s> for PaddleSystem {
                         let scaled_amount = 1.2 * mv_amount as f32;
                         transform.prepend_translation_y(scaled_amount);
                     }
-
-                    println!("Side {:?} moving {}", side_name, mv_amount);
                 }
             }
         }
