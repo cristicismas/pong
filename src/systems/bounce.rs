@@ -1,7 +1,6 @@
 use amethyst::{
-    core::{Transform, SystemDesc},
-    derive::SystemDesc,
-    ecs::{Join, ReadStorage, System, SystemData, World, WriteStorage},
+    core::{Transform},
+    ecs::{Join, ReadStorage, System, WriteStorage},
 };
 
 use crate::pong::{Ball, Side, Paddle, ARENA_HEIGHT};
