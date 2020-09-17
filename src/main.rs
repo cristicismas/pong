@@ -1,12 +1,14 @@
 mod systems;
-
+mod audio;
 mod pong;
+
 use crate::pong::Pong;
 
 use amethyst::{
     core::transform::TransformBundle,
     input::{InputBundle, StringBindings},
     ui::{RenderUi, UiBundle},
+    audio::AudioBundle,
     prelude::*,
     renderer::{
         plugins::{RenderFlat2D, RenderToWindow},
@@ -30,6 +32,7 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<StringBindings>::new())?
+        .with_bundle(AudioBundle::default())?
         .with(systems::PaddleSystem, "paddle_system", &["input_system"])
         .with(systems::MoveBallsSystem, "ball_system", &[])
         .with(systems::WinnerSystem, "winner_system", &["ball_system"])
