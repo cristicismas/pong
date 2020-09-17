@@ -3,12 +3,13 @@ mod audio;
 mod pong;
 
 use crate::pong::Pong;
+use crate::audio::Music;
 
 use amethyst::{
     core::transform::TransformBundle,
     input::{InputBundle, StringBindings},
     ui::{RenderUi, UiBundle},
-    audio::AudioBundle,
+    audio::{DjSystemDesc, AudioBundle},
     prelude::*,
     renderer::{
         plugins::{RenderFlat2D, RenderToWindow},
@@ -32,7 +33,12 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<StringBindings>::new())?
-        .with_bundle(AudioBundle::default())?
+        .with_bundle(AudioBundle::default())?.
+        with_system_desc(
+            DjSystemDesc::new(|music: &mut Music| music.music.next()),
+            "dj_system",
+            &[],
+        )
         .with(systems::PaddleSystem, "paddle_system", &["input_system"])
         .with(systems::MoveBallsSystem, "ball_system", &[])
         .with(systems::WinnerSystem, "winner_system", &["ball_system"])
